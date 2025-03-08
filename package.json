@@ -1,0 +1,25 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "nodemon server",
+    "seed": "node -e \"require('./db/seed').seedDatabase().then(() => process.exit(0)).catch(err => { console.error(err); process.exit(1); })\"",
+    "db:drop": "node -e \"require('./db/admin').dropMessagesTable().then(() => process.exit(0)).catch(err => { console.error(err); process.exit(1); })\"",
+    "db:reset": "node -e \"require('./db/admin').resetMessagesTable().then(() => { console.log('Now seeding...'); return require('./db/seed').seedDatabase(); }).then(() => process.exit(0)).catch(err => { console.error(err); process.exit(1); })\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "pg": "^8.13.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
