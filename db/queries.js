@@ -1,3 +1,4 @@
+// Import required modules
 const pool = require("./databasepg");
 const { seedDatabase } = require("./seed");
 
@@ -40,8 +41,14 @@ async function createMessage(text, user) {
   }
 }
 
+// Setup database function
 async function setupDatabase() {
   try {
+    // Test the connection
+    const client = await pool.connect();
+    console.log("Successfully connected to the database");
+    client.release();
+
     await pool.query(`
       CREATE TABLE IF NOT EXISTS messages (
         id SERIAL PRIMARY KEY,
@@ -55,7 +62,7 @@ async function setupDatabase() {
     // seed the database
     await seedDatabase();
   } catch (err) {
-    console.error("Error setting up database:", err);
+    console.error("Database connection error:", err);
     throw err;
   }
 }
